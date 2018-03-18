@@ -1,0 +1,39 @@
+;;; Lock screen
+(defparameter *my-lock-command*
+  "gnome-screensaver-command -l")
+(defcommand lock-screen () ()
+  "Lock my screen."
+  (run-shell-command *my-lock-command* t))
+(run-shell-command "xscreensaver -no-splash")
+
+;;; Log out
+(defparameter *my-logout-command*
+  "killall stumpwm")
+(defcommand log-out () ()
+  "Log session out."
+  (run-shell-command *my-logout-command* nil))
+(define-key *top-map* (kbd "C-M-o") "log-out")
+(define-key *top-map* (kbd "s-o") "log-out")
+
+(defcommand battery-percentage () ()
+  "Display remaining % of battery."
+(run-shell-command "upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage: | tr -s ' ' | cut -d ' ' -f 3 " t))
+(define-key *root-map* (kbd "B") "battery-percentage")
+
+(defcommand emacs-anywhere () ()
+  "Edit text area with Emacs."
+ (run-shell-command "/home/dxtr/.emacs_anywhere/bin/run" nil))
+(define-key *root-map* (kbd "E") "emacs-anywhere")
+
+(define-key *top-map* (kbd "C-M-l") "lock-screen")
+(define-key *top-map* (kbd "s-l") "lock-screen")
+ 	
+
+;; turn on/off the mode line for the current head only.
+(stumpwm:toggle-mode-line (stumpwm:current-screen)
+                          (stumpwm:current-head))
+ 	
+
+(setf stumpwm:*screen-mode-line-format*
+      (list "%d | %w | " '(:eval (string-trim '(#\Newline) (battery-percentage)))))
+
