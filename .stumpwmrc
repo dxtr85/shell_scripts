@@ -32,7 +32,7 @@
 ;; turn on/off the mode line for the current head only.
 (stumpwm:toggle-mode-line (stumpwm:current-screen)
                           (stumpwm:current-head))
- 	
+(setf stumpwm:*mode-line-timeout* 0.99)
 
 (setf stumpwm:*screen-mode-line-format*
       (list "%d | %w | " '(:eval (string-trim '(#\Newline) (battery-percentage)))))
