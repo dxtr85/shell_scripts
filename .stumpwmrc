@@ -38,6 +38,7 @@
       (list "%d | %w | " '(:eval (string-trim '(#\Newline) (battery-percentage)))))
 
 (in-package :stumpwm)
+(set-prefix-key (kbd "s-t"))
 (toggle-mode-line (current-screen) (current-head))
 (defun stump-send-click (button iterations)
       "Send a click to the current pointer location.
