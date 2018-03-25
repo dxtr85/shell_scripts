@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=redshift
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[pl]=redshift - eye protection
+Name=redshift - eye protection
+Comment[pl]=
+Comment=
