@@ -1,16 +1,38 @@
-Config { font = "xft:inconsolata:size=10:antialias=true"
-       , bgColor = "#002b36"
-       , fgColor = "#657b83"
+Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+       , additionalFonts = []
+       , borderColor = "black"
+       , border = TopB
+       , bgColor = "black"
+       , fgColor = "grey"
+       , alpha = 255
        , position = Top
+       , textOffset = -1
+       , iconOffset = -1
        , lowerOnStart = True
-       , commands = [ Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Weather "EGPF" ["-t","<station>: <tempC>C",
+                                          "-L","18","-H","25",
+                                          "--normal","green",
+                                          "--high","red",
+                                          "--low","lightblue"] 36000
+                    , Run Network "eth0" ["-L","0","-H","32",
+                                          "--normal","green","--high","red"] 10
+                    , Run Network "eth1" ["-L","0","-H","32",
+                                          "--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50",
+                               "--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Date "<fc=#93a1a1>%a %b %_d %Y %H:%M</fc>" "date" 10
-                    , Run DiskIO [("/", "IO: <total>"), ("sda4", "<total>")] [] 10
-                    , Run StdinReader
+                    , Run Swap [] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{  %cpu%  %memory%  %diskio%  %date%"
+       , template = "%cpu% | %memory% * %swap% | %eth0% - %eth1% }\
+                    \{ <fc=#ee9a00>%date%</fc>| %EGPF% | %uname%"
        }
