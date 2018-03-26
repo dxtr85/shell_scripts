@@ -15,6 +15,11 @@ alias pogoda='curl wttr.in/~Szerzyny?lang=pl'
 
 #GIT aliases
 alias gd='git log -p '
+alias gl='git log --graph --format="?%C\(yellow bold\)%h%Creset %C\(bold blue white\)%d%Creset %C\(white bold\)%s%Creset%n %C\(magenta bold\)%cr%Creset %C\(green bold\)%an%Creset"'
+alias gl1='git log --oneline --decorate --all'
+alias gl2='git log --oneline --decorate --all --stat'
+alias glr='git log --graph --oneline --stat -G '
+alias glp='git log --graph --oneline --stat --pickaxe-all -G '
 alias gpo='git push origin '
 alias gs='git status'
 alias gco='git checkout'
