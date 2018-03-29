@@ -16,23 +16,20 @@ import Data.Monoid
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
-myBorderWidth   = 1
-main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar /home/dxtr/.config/xmobar/.xmobarrc"
-    xmonad $ defaultConfig {
+myBorderWidth   = 2
+main = xmonad $ defaultConfig {
         terminal           = "xterm",
         modMask            = mod4Mask,
         workspaces         = ["Net", "Txt", "Muza", "Mine", "5", "6", "7", "8", "9"],
         normalBorderColor  = "#000000",
-        focusedBorderColor = "#838B8B",
+        focusedBorderColor = "#00FF00",
         manageHook         = composeOne [isFullscreen -?> doFullFloat],
         borderWidth        = myBorderWidth,
         keys               = myKeys,
         focusFollowsMouse  = True,
         layoutHook         = myLayout,
         logHook            = dynamicLogWithPP $ xmobarPP
-                           {  ppOutput = hPutStrLn xmproc,
-                              ppTitle = xmobarColor "green" "" . shorten 60,
+                           {  ppTitle = xmobarColor "green" "" . shorten 60,
                               ppHiddenNoWindows = xmobarColor "grey" ""
                                      }
     }
@@ -47,9 +44,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask              , xK_space    ), sendMessage NextLayout)
     , ((modMask .|. shiftMask, xK_space    ), setLayout $ XMonad.layoutHook conf)
     , ((modMask              , xK_n        ), refresh)
-    , ((modMask,               xK_f     ), spawn "firefox")
-    , ((modMask,               xK_p     ), spawn "spotify")
-    , ((modMask,               xK_a     ), spawn "emacs")
     , ((modMask              , xK_Tab      ), windows W.focusDown)
     , ((modMask              , xK_j        ), windows W.focusDown)
     , ((modMask              , xK_k        ), windows W.focusUp)
@@ -65,6 +59,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_q        ), io (exitWith ExitSuccess))
     , ((modMask              , xK_q        ), spawn "xmonad --recompile; xmonad --restart")
     , ((modMask              , xK_u       ), shellPrompt defaultXPConfig)
+    , ((modMask,               xK_f     ), spawn "firefox")
+    , ((modMask,               xK_p     ), spawn "spotify")
+    , ((modMask,               xK_a     ), spawn "emacs")
+    , ((0                    , 0x1008ff19  ), spawn "emacs")
+    , ((0                    , 0x1008ff81  ), spawn "spotify")
+    , ((0                    , 0x1008ff18  ), spawn "firefox")
+    , ((0                    , 0x1008ff1b  ), shellPrompt defaultXPConfig)
     , ((0                    , 0x1008ff30  ), spawn "xterm -e mc")
     , ((0                    , 0x1008ff13  ), spawn "amixer -q set Master 2dB+ unmute")
     , ((0                    , 0x1008ff11  ), spawn "amixer -q set Master 2dB-")
