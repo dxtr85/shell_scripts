@@ -62,6 +62,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_f     ), spawn "firefox")
     , ((modMask,               xK_p     ), spawn "spotify")
     , ((modMask,               xK_a     ), spawn "emacs")
+    , ((modMask .|. shiftMask,  xK_l     ), spawn "xscreensaver-command -lock")
     , ((0                    , 0x1008ff19  ), spawn "emacs")
     , ((0                    , 0x1008ff81  ), spawn "spotify")
     , ((0                    , 0x1008ff18  ), spawn "firefox")

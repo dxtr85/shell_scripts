@@ -25,4 +25,8 @@ xterm*color15: rgb:fc/fc/fc
 xterm*boldMode: false
 xterm*colorBDMode: true
 xterm*colorBD: rgb:fc/fc/fc
-xterm*font:     *-fixed-*-*-*-18-*
+XTerm*font: -misc-fixed-medium-r-normal--13-120-75-75-c-70-iso8859-2
+XTerm*boldFont: -misc-fixed-bold-r-*-*-13-*-*-*-*-*-iso8859-2
+XTerm*scrollBar: false
+XTerm*transparent: false
+XTerm*shading: 30
