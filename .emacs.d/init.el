@@ -17,10 +17,12 @@
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (magit expand-region multiple-cursors workgroups md4rd hydra elfeed-org elfeed zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu)))
+    (smtpmail-multi magit expand-region multiple-cursors workgroups md4rd hydra elfeed-org elfeed zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu)))
  '(send-mail-function (quote smtpmail-send-it))
- '(smtpmail-smtp-server "smtp.mitoraj.pl")
- '(smtpmail-smtp-service 587))
+ '(smtpmail-queue-dir "~/Maildir/queue/cur")
+ '(smtpmail-smtp-server "ssl0.ovh.net")
+ '(smtpmail-smtp-service 465)
+ '(smtpmail-smtp-user nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

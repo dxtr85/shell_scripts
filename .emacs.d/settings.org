@@ -132,7 +132,6 @@
 
 ** mu4e
 #+BEGIN_SRC emacs-lisp
-
 (require 'mu4e)
 (setq mu4e-maildir (expand-file-name "~/Maildir"))
 (setq mu4e-drafts-folder "/drafts")
@@ -185,7 +184,7 @@
 ;; use this for testing
 (setq mu4e-get-mail-command "true")
 ;; use this to sync with mbsync
-(setq mu4e-get-mail-command "mbsync -V gmail"
+(setq mu4e-get-mail-command "mbsync -V gmail; mbsync -V ovh"
       mu4e-update-interval 120
       mu4e-headers-auto-update t)
 
@@ -199,17 +198,43 @@
       smtpmail-queue-dir   "~/Maildir/queue/cur")
 
 
-
+(setq auth-source-debug t)
 (require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-   starttls-use-gnutls t
-   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-   smtpmail-auth-credentials
-     '(("smtp.gmail.com" 587 "dxtr85@gmail.com" nil))
-   smtpmail-default-smtp-server "smtp.gmail.com"
-   smtpmail-smtp-server "smtp.gmail.com"
-   smtpmail-smtp-service 587)
+(require 'smtpmail-multi)
+;(setq message-send-mail-function 'smtpmail-send-it
+;   starttls-use-gnutls t
+;   smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+;   smtpmail-auth-credentials "~/.authinfo.gpg"
+;     
+;   smtpmail-default-smtp-server "smtp.gmail.com"
+;   smtpmail-smtp-server "ssl0.ovh.net"
+;   smtpmail-smtp-service 587)
+(setq    smtpmail-auth-credentials "~/.authinfo.gpg")
+(setq smtpmail-multi-accounts
+      (quote
+       ((ovh . ("jakub.mitoraj.ext@altenpolska.pl"
+                 "ssl0.ovh.net"
+                 587
+                 "jakub.mitoraj.ext@altenpolska.pl"
+                 nil nil nil nil))
+        (gmail . ("dxtr85"
+                   "smtp.gmail.com"
+                   587
+                   "dxtr85@gmail.com"
+                   starttls
+                   nil nil nil)))))
 
+(setq smtpmail-multi-associations
+      (quote
+       (("dxtr85.com" gmail)
+        ("jakub.mitoraj.ext@altenpolska.pl" ovh))))
+
+(setq smtpmail-multi-default-account (quote gmail))
+
+(setq message-send-mail-function 'smtpmail-multi-send-it)
+
+(setq smtpmail-debug-info t)
+(setq smtpmail-debug-verbose t)
 ;; alternatively, for emacs-24 you can use:
 ;;(setq message-send-mail-function 'smtpmail-send-it
 ;;     smtpmail-stream-type 'starttls
@@ -217,6 +242,63 @@
 ;;     smtpmail-smtp-server "smtp.gmail.com"
 ;;     smtpmail-smtp-service 587)
 
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+ (setq mu4e-contexts
+    `( ,(make-mu4e-context
+          :name "Private"
+          :enter-func (lambda () (mu4e-message "Entering Private context"))
+          :leave-func (lambda () (mu4e-message "Leaving Private context"))
+          ;; we match based on the contact-fields of the message
+          :match-func (lambda (msg)
+                        (when msg 
+                          (mu4e-message-contact-field-matches msg 
+                            :to "dxtr85@gmail.com")))
+          :vars '( ( user-mail-address      . "dxtr85@gmail.com"  )
+                   ( user-full-name         . "Jakub Mitoraj" )
+                   ( mu4e-compose-signature .
+                     (concat
+                       "Pozdrawiam,\n"
+                       "Jakub Mitoraj.\n"))))
+       ,(make-mu4e-context
+          :name "Work"
+          :enter-func (lambda () (mu4e-message "Switch to the Work context"))
+          ;; no leave-func
+          ;; we match based on the maildir of the message
+          ;; this matches maildir /Arkham and its sub-directories
+          :match-func (lambda (msg)
+                        (when msg
+                          (string-match-p "^/Alten" (mu4e-message-field msg :maildir))))
+          :vars '( ( user-mail-address       . "jakub.mitoraj.ext@altenpolska.pl" )
+                   ( user-full-name          . "Jakub Mitoraj" )
+                   ( mu4e-compose-signature  .
+                     (concat
+                       "Jakub Mitoraj,\n"
+                       "Alten Polska\n"))))
+
+       ,(make-mu4e-context
+          :name "Cycling"
+          :enter-func (lambda () (mu4e-message "Switch to the Cycling context"))
+          ;; no leave-func
+          ;; we match based on the maildir of the message; assume all
+          ;; cycling-related messages go into the /cycling maildir
+          :match-func (lambda (msg)
+                        (when msg
+                          (string= (mu4e-message-field msg :maildir) "/cycling")))
+          :vars '( ( user-mail-address       . "dxtr85@gmail.com" )
+                   ( user-full-name          . "JakMit" )
+                   ( mu4e-compose-signature  . nil)))))
+
+  ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
+  ;; guess or ask the correct context, e.g.
+
+  ;; start with the first (default) context; 
+  ;; default is to ask-if-none (ask when there's no context yet, and none match)
+  ;; (setq mu4e-context-policy 'pick-first)
+
+  ;; compose with the current context is no context matches;
+  ;; default is to ask 
+  ;; (setq mu4e-compose-context-policy nil)
 #+END_SRC
 ** mu4e-org
 #+BEGIN_SRC emacs-lisp
