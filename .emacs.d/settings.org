@@ -109,7 +109,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
-(setq org-agenda-files (list "/home/dxtr/todo.org" ))
+(setq org-agenda-files (list "/home/dxtr/.notes" ))
 #+END_SRC
 
 ** haskell-mode

@@ -15,6 +15,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files nil)
+ '(org-babel-load-languages (quote ((shell . t))))
  '(package-selected-packages
    (quote
     (smtpmail-multi magit expand-region multiple-cursors workgroups md4rd hydra elfeed-org elfeed zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu)))
