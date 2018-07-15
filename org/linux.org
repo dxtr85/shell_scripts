@@ -1,4 +1,14 @@
 * Jak działa Linux - Brian Ward
+** 1-9
+*** 1 - Informacje ogólne
+*** 2 - Podstawowe polecenia i hierarchia katalogów
+*** 3 - Urządzenia
+*** 4 - Dyski i systemy plików
+*** 5 - Jak uruchamia się Linux?
+*** 6 - Uruchamianie przestrzeni użytkownika
+*** 7 - Konfiguracja systemu: rejestrowanie, czas systemowy, zadania wsadowe i użytkownicy
+*** 8 - Wykorzystanie procesów i zasobów
+*** 9 - Sieć i jej konfiguracja
 ** 10 - Usługi i aplikacje sieciowe
 *** Podstawy usług
 #+BEGIN_EXAMPLE
@@ -11,3 +21,83 @@ Powyższe polecenie telnet pozwala na badanie zdalnych usług.
 #+BEGIN_SRC bash
   curl --trace-ascii plik_sledzenia http://www.wikipedia.org/
 #+END_SRC
+*** Serwery sieciowe
+Do serwerów sieciowych należą:
+- syslogd (uruchomienie z opcją -d)
+- httpd, apache, apache2 - serwer WWW
+- sshd - demon ssh
+- postfix, qmail, sendmail - serwery pocztowe
+- cupsd - serwer wydruku
+- nfsd, mountd - demony sieciowych systemów plików
+- smbd, nmbd - demony współdzielenia plików z Windows
+- rpcbind - demon RPC
+
+*** Secure Shell
+
+*** Demony inetd i xinetd
+*** Narzędzia diagnostyczne
+*** Zdalne wywoływanie procedur
+*** Zabezpieczenie sieci
+*** Spojrzenie w przyszłość
+*** Gniazda - sposób komunikacji procesów z siecią
+*** Gniazda domenowe systemu 
+
+** 11 - Wprowadzenie do skryptów powłoki
+*** Podstawy skryptów powłoki
+*** Cudzysłowy i literały
+*** Zmienne specjalne
+*** Kody wyjścia
+*** Wyrażenia warunkowe
+*** Pętle
+*** Podmiana poleceń
+*** Zarządzanie plikami tymczasowymi
+*** Dokumenty miejscowe
+*** Ważne narzędzia skryptów powłoki
+*** Podpowłoki
+*** Włączanie do skryptów innych plików
+*** Pobieranie danych od użytkowników
+*** Kiedy (nie)używać skryptów powłoki?
+** 12 - Przenoszenie plików w sieci
+*** Szybkie wykonywanie kopii
+*** rsync
+*** Wprowadzenie do współużytkowania plików
+*** Współużytkowanie plików za pomocą pakietu Samba
+*** Klienty DNS
+*** Dodatkowe ograniczenia i opcjo sieciowych usług plikowych
+
+** 13 - Środowiska użytkowników
+*** Wytyczne dotyczące tworzenia plików uruchomieniowych
+*** Kiedy naseży modyfiować pliki uruchomieniowe?
+*** Elementy plików uruchamiających powłokę
+*** Kolejność plików uruchomieniowych i przykłady
+*** Domyślne ustawienia użytkownika
+*** Pułapki w plikach uruchemieniowych
+*** Dalsze informacje
+
+** 14 - Ogólny przegląd interfejsów użytkownika systemu Linux
+*** Komponenty interfejsów użytkownika
+*** System X Window System
+*** Eksplorowanie klientów serwera X
+*** Przyszłość serwera X
+*** Usługa D-Bus
+*** Drukowanie
+*** Inne zagadnienia związane z interfejsami użytkownika
+
+** 15 - Narzędzia programistyczne
+*** Kompilator języka C
+*** Narzędzie make
+*** Debuggery
+*** Lex i Yacc
+*** Języki skryptowe
+*** Java
+*** Spojrzenie w przyszłość: kompilowanie pakietów
+
+** 16 - Wprowadzenie do komplowania oprogramowania z kodu źródłowego C
+*** Systemy do tworzenia oprogramowania
+*** Rozpakowywanie pakietów kodu źródłowego języka C
+*** GNU autoconf
+*** Praktyki instalacyjne
+*** Stosowanie poprawek
+*** Rozwiązywanie problemów z kompilowaniem i instalowaniem
+*** Spojrzenie w przyszłość
+
